@@ -15,7 +15,7 @@ jQuery('p').each(function() {
 });
 
 //bootstrap for mobile
-if(window.matchMedia("(min-width: 768px)").matches){
+if(window.matchMedia("(min-width: 769px)").matches){
 	jQuery(function() {
 		jQuery('.navbar .dropdown').hover(function() {
 			jQuery(this).find('.dropdown-menu').first().stop(true, true).delay(250).slideDown();
@@ -31,42 +31,44 @@ if(window.matchMedia("(min-width: 768px)").matches){
 }
 
 //equal height columns
-equalheight = function(container){
+if(window.matchMedia("(min-width: 769px)").matches){
+	equalheight = function(container){
 
-var currentTallest = 0,
-     currentRowStart = 0,
-     rowDivs = new Array(),
-     $el,
-     topPosition = 0;
+	var currentTallest = 0,
+	     currentRowStart = 0,
+	     rowDivs = new Array(),
+	     $el,
+	     topPosition = 0;
 
-jQuery(container).each(function() {
+	jQuery(container).each(function() {
 
-   $el = jQuery(this);
-   jQuery($el).height('auto')
-   topPostion = $el.position().top;
+	   $el = jQuery(this);
+	   jQuery($el).height('auto')
+	   topPostion = $el.position().top;
 
-   if (currentRowStart != topPostion) {
-     for (currentDiv = 0 ; currentDiv < rowDivs.length ; currentDiv++) {
-       rowDivs[currentDiv].height(currentTallest);
-     }
-     rowDivs.length = 0; // empty the array
-     currentRowStart = topPostion;
-     currentTallest = $el.height();
-     rowDivs.push($el);
-   } else {
-     rowDivs.push($el);
-     currentTallest = (currentTallest < $el.height()) ? ($el.height()) : (currentTallest);
-  }
-   for (currentDiv = 0 ; currentDiv < rowDivs.length ; currentDiv++) {
-     rowDivs[currentDiv].height(currentTallest);
-   }
- });
+	   if (currentRowStart != topPostion) {
+	     for (currentDiv = 0 ; currentDiv < rowDivs.length ; currentDiv++) {
+	       rowDivs[currentDiv].height(currentTallest);
+	     }
+	     rowDivs.length = 0; // empty the array
+	     currentRowStart = topPostion;
+	     currentTallest = $el.height();
+	     rowDivs.push($el);
+	   } else {
+	     rowDivs.push($el);
+	     currentTallest = (currentTallest < $el.height()) ? ($el.height()) : (currentTallest);
+	  }
+	   for (currentDiv = 0 ; currentDiv < rowDivs.length ; currentDiv++) {
+	     rowDivs[currentDiv].height(currentTallest);
+	   }
+	 });
+	}
+
+	jQuery(window).load(function() {
+	  equalheight('.equal .col');
+	});
+
+	jQuery(window).resize(function(){
+	  equalheight('.equal .col');
+	});
 }
-
-jQuery(window).load(function() {
-  equalheight('.equal .col');
-});
-
-jQuery(window).resize(function(){
-  equalheight('.equal .col');
-});

@@ -6,8 +6,10 @@
     <meta http-equiv="content-language" content="<?php bloginfo('language'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="copyright" content="Copyright <?php bloginfo('name');?> <?php echo date('Y');?>. All Rights Reserved.">
+<meta name="google-site-verification" content="JLxaR3TNIUorblykzvrETee-3iogzbTUTsb1eA_Rk-s" />
 	<title><?php echo wp_title();?></title>
     <link href='https://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" href="<?php echo get_stylesheet_directory_uri() ?>/favicon.ico" />
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
