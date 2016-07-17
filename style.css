@@ -213,6 +213,31 @@ footer > h2 {
 	#location h4,#location h5{margin:0 0 5px;color:#c8102e;font-family:'veneerregular',Arial,sans-serif;font-style:normal;font-weight:400;font-size:24px}
 	#location h5{color:#555}
 
+/* !Specials Menu */
+#specials article#tabs ul li a {
+	font-family: 'veneerregular',Arial,sans-serif;
+    color: #fff;
+    display: block;
+    padding: 10px 30px 5px;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    font-size: 26px;
+    margin: 0 0 3px;
+}
+#specials article#tabs ul {
+	border-bottom:none;
+	display: inline-block;
+}
+#specials article#tabs ul li.specials_item_1 a {
+	background: #e3393f;
+}
+#specials article#tabs ul li.specials_item_2 a {
+	background: #00b198;
+}
+#specials article#tabs ul li.specials_item_3 a {
+	background: #e0457b;
+}
+
 /* !Social */
 	.social h5{text-transform:uppercase;text-align:center;margin:2px 7px 5px;color:#777;font-size:13px;letter-spacing:.1em}
 	.last .menu-social-container{background:url(images/connect1.png) no-repeat center bottom;background-size:contain;padding:5px 0 53px}

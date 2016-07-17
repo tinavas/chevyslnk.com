@@ -2,10 +2,11 @@
 
 <div id="home" class="container-fluid">
 	<a id="hiring" href="#apply">Now Hiring</a>
+	
 	<section id="slider" class="row">
 		<h1 class="hidden"><?php bloginfo('name')?> – <?php bloginfo('description');?></h1>
 
-	<?php if( have_rows('background') ):
+	<?php if( have_rows('background') &&  !get_field( 'home_video' ) ):
 		$count == 0; ?>
 		<div id="carousel" class="carousel slide">
 			<div class="carousel-inner">
@@ -20,25 +21,89 @@
 		</div>
 	<?php endif; ?>
 	</section>
+	
+	<section id="slider" class="row">
+	<?php
+	/**
+	 * oEmbed Video - YouTube
+	 */
+
+		$iframe = get_field('home_video');
+		preg_match('/src="(.+?)"/', $iframe, $matches);
+		$src = $matches[1];
+		
+		/**
+		 * Substring - YouTube Video ID
+		 */
+		$str_sub = $src;
+		preg_match('/embed\/(.*?)\?/', $str_sub, $match_sub);
+		$sub_str_match = $match_sub[1];
+
+		/**
+		 * YouTube Embed Parameters
+		 */
+		$params = array(
+			'controls'  	=> 0,
+			'hd'        	=> 1,
+			'autohide'  	=> 1,
+			'autoplay'		=> 1,
+			'version'		=> 3,
+			'controls'		=> 0,
+			'showinfo'		=> 0,
+			'wmode'			=> 'opaque',
+			'loop'			=> 1,
+			'html5'			=> 1,
+			'enablejsapi' 	=> 1,
+			'playlist'		=> $sub_str_match
+		);
+		
+		/**
+		 * ReFormat oEmbed
+		 */
+		$new_src = add_query_arg($params, $src);
+		$iframe = str_replace($src, $new_src, $iframe);
+		$attributes = 'frameborder="0"';
+		$iframe = str_replace('></iframe>', ' ' . $attributes . '></iframe>', $iframe);
+		echo '<div class="embed-container">';
+		echo $iframe;
+		echo '</div>';
+		?>
+		<style>
+			.embed-container { 
+				position: relative; 
+				padding-bottom: 56.25%;
+				height: 0;
+				overflow: hidden;
+				max-width: 100%;
+				height: auto;
+			} 
+			.embed-container iframe,
+			.embed-container object,
+			.embed-container embed { 
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+	</section>
 
 	<div style="display: none;">
 		<div id="specials" class="text-center">
 			<article id="tabs">
-				<ul>
-					<li class="tab-1"><a href="#food">Dinner</a></li>
-					<li class="tab-2"><a href="#drink">Drink</a></li>
-					<li class="tab-3"><a href="#lunch">Lunch</a></li>
+				<ul class="nav nav-tabs" id="myTab">
+					<li class="specials_item_1 active"><a data-target="#food" data-toggle="tab">Dinner</a></li>
+					<li class="specials_item_2"><a data-target="#drink" data-toggle="tab">Drink</a></li>
+					<li class="specials_item_3"><a data-target="#lunch" data-toggle="tab">Lunch</a></li>
 				</ul>
-				<div id="food">
-					<?php the_field('food_specials'); ?>
+	
+				<div class="tab-content">
+					<div class="tab-pane active" id="food"><?php the_field('food_specials', 188); ?></div>
+					<div class="tab-pane" id="drink"><?php the_field('drink_specials', 188); ?></div>
+					<div class="tab-pane" id="lunch"><?php the_field('lunch_specials', 188); ?></div>
 				</div>
-				<div id="drink">
-					<?php the_field('drink_specials'); ?>
-				</div>
-				<div id="lunch">
-					<?php the_field('lunch_specials'); ?>
-				</div>
-			</article>
+			</article>	
 		</div>
 	</div>
 
@@ -57,7 +122,7 @@
 				<li class="tab-3"><a href="#photos">Photo Gallery</a></li>
 				<li class="tab-4"><a href="#fund">Fundraising</a></li>
 			</ul>
-			<h2>Now Hiring</h2>
+			<h2>$200 Bonus-Now Hiring</h2>
 <!-- 			<a href="#" class="btn btn1">View Open Positions</a> -->
 			<a id="apply-btn" href="#apply" class="btn btn2">Apply Today</a>
 		</div>
@@ -70,7 +135,7 @@
 		    <article id="location">
 				<h2>Location &amp; Hours</h2>
 				<?php the_field('location'); ?>
-				<div class="col-sm-7 col-md-8"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.2040322736807!2d-96.64500524849574!3d40.75753697922555!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87969617f81f6819%3A0x6bf4c64d97d0029e!2sChevys+Fresh+Mex!5e0!3m2!1sen!2sus!4v1461013916048" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+				<div class="col-sm-7 col-md-8"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.205055167633!2d-96.64542768481041!3d40.75751447932699!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87969617f7cadfed%3A0x5532f8af454c785a!2s5500+S+56th+St+%231%2C+Lincoln%2C+NE+68516!5e0!3m2!1sen!2sus!4v1464031096113" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe></div>
 		    </article>
 		    <?php if (get_field('gallery')){ ?>
 				<article id="photos" class="gallery">
